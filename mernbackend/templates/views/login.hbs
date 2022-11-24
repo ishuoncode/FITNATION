@@ -6,7 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Login and Signup Form</title>
+    <title>Fitnation Login & Signup Form</title>
+     <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="css/img/fitness-high-resolution-logo-color-on-transparent-background.png" type="image/svg+xml">
     <!-- CSS FILE LINK -->
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/style.css">
@@ -25,14 +29,14 @@
                 <!-- form-container start -->
                 <div class="form-content">
                     <h2 class="heading">Login</h2>
-                    <form action="#">
+                    <form action="/loggedin" method="post">
                         <!-- Emial filed -->
                         <div class="field input-field">
-                            <input type="email" placeholder="Email" class="input" required>
+                            <input type="email" placeholder="Email" class="input" name="email" required>
                         </div>
                         <!-- Password Filed -->
                         <div class="field input-field">
-                            <input type="password" placeholder="Password" class="password" required>
+                            <input type="password" placeholder="Password" class="password" name="pswd" required>
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
                         <!-- Forgot Password -->
@@ -41,7 +45,7 @@
                         </div>
                         <!-- Login Button -->
                         <div class="field button-field">
-                            <button>Login</button>
+                            <button type="submit">Login</button>
                         </div>
                     </form>
 
