@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const constants = require("../constants");
 
 const employeeSchema = new mongoose.Schema({
   name: {
@@ -30,14 +32,14 @@ employeeSchema.methods.generateAuthToken = async function () {
   try {
     const token = jwt.sign(
       { _id: this._id.toString() },
-      "thisismyfirstbackendprojectimadetoshow"
+      constants.SECRET_KEY,
     );
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
     // console.log(token);
     return token;
   } catch (error) {
-    console.log("the error part" + erro+r);
+    console.log("the error part" + error);
   }
 };
 

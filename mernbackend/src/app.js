@@ -4,11 +4,11 @@ const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");/////////node ka part hai ye 
+const constants = require("./constants");
 
 require("./db/conn");
 const Register = require("./models/registers");
-
-const port = process.env.PORT || 3000;
+const { models } = require("mongoose");
 
 const static_path = path.join(__dirname, "../public");
 
@@ -83,6 +83,6 @@ app.post("/loggedin", async (req, res) => {
 });
 
 ////////////////////////////////////////////
-app.listen(port, () => {
-  console.log(`server is running at port no ${port}`);
+app.listen(constants.PORT, () => {
+  console.log(`server is running at port no ${constants.PORT}`);
 });
