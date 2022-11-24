@@ -1,14 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");/////////node ka part hai ye 
-const constants = require("./constants");
+const crypto = require("crypto"); /////////node ka part hai ye
 
 require("./db/conn");
 const Register = require("./models/registers");
 const { models } = require("mongoose");
+
+const port = process.env.PORT;
 
 const static_path = path.join(__dirname, "../public");
 
@@ -72,6 +74,10 @@ app.post("/loggedin", async (req, res) => {
     //  res.send(useremail);
     //  console.log(useremail);
     const isMatch = await bcrypt.compare(password, useremail.pswd);
+
+    const token = await useremail.generateAuthToken();
+    console.log("the token part " + token);
+
     if (isMatch) {
       res.status(201).render("index");
     } else {
@@ -83,6 +89,6 @@ app.post("/loggedin", async (req, res) => {
 });
 
 ////////////////////////////////////////////
-app.listen(constants.PORT, () => {
-  console.log(`server is running at port no ${constants.PORT}`);
+app.listen(port, () => {
+  console.log(`server is running at port no ${port}`);
 });
