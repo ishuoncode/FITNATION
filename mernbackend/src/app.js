@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");/////////node ka part hai ye 
 
 require("./db/conn");
 const Register = require("./models/registers");
@@ -38,17 +39,17 @@ app.post("/register", async (req, res) => {
   try {
     const password = req.body.pswd;
     const cpassword = req.body.confirmpswd;
-    if (password === cpassword) {
+    console.log(password, cpassword);
+    if (crypto.timingSafeEqual(Buffer.from(password), Buffer.from(cpassword))) {
       const registerEmployee = new Register({
         name: req.body.name,
         email: req.body.email,
         pswd: req.body.pswd,
-        confirmpswd: req.body.confirmpswd,
       });
-      /////////////password hash////////////////////////////////
-
-
-
+      ////generating token for cookiee//////////
+      console.log("the sucesspart " + registerEmployee);
+      const token = await registerEmployee.generateAuthToken();
+      console.log("the token part " + token);
 
       const registered = await registerEmployee.save();
       res.status(201).redirect("/index");
@@ -56,25 +57,27 @@ app.post("/register", async (req, res) => {
       res.status(403).send("password are not matched");
     }
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
+    console.log("the error part page");
   }
 });
 
-//login check
+//login check///////////////////////
 app.post("/loggedin", async (req, res) => {
-  try{
-      const email = req.body.email;
-      const password =req.body.pswd;
-     const useremail=await Register.findOne({ email: email});
-      //  res.send(useremail);
-      //  console.log(useremail);
-      const isMatch =await bcrypt.compare(password,useremail.pswd);
-      if(isMatch){
-        res.status(201).render("index");
-      }else{
-        res.send("invalid login details");
-      }
-  }catch(error){
+  try {
+    const email = req.body.email;
+    const password = req.body.pswd;
+    const useremail = await Register.findOne({ email: email });
+    //  res.send(useremail);
+    //  console.log(useremail);
+    const isMatch = await bcrypt.compare(password, useremail.pswd);
+    if (isMatch) {
+      res.status(201).render("index");
+    } else {
+      res.send("invalid login details");
+    }
+  } catch (error) {
     res.status(403).send("invalid login details");
   }
 });
