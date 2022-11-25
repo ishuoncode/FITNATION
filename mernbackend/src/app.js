@@ -5,6 +5,8 @@ const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto"); /////////node ka part hai ye
+const cookieParser = require("cookie-parser");
+
 
 require("./db/conn");
 const Register = require("./models/registers");
@@ -18,6 +20,11 @@ const template_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
 
 app.use(express.static(static_path));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+
 app.set("view engine", "hbs");
 app.set("views", template_path);
 hbs.registerPartials(partials_path);
@@ -34,8 +41,9 @@ app.get("/index", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.get("/mappy", (req, res) => {
+  res.render("mappy");
+});
 
 //   create new user in our database
 
