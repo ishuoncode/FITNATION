@@ -42,6 +42,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 app.get("/mappy", (req, res) => {
+  console.log(`the cookie token is ${req.cookies.jwt}`);
   res.render("mappy");
 });
 
@@ -100,6 +101,8 @@ app.post("/loggedin", async (req, res) => {
       //secure: true,         ---------------only use when you deploy this on secure https
     });
     
+     
+
     if (isMatch) {
       res.status(201).render("index");
     } else {
