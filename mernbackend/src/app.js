@@ -6,8 +6,7 @@ const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto"); /////////node ka part hai ye
 const cookieParser = require("cookie-parser");
-const auth=require("./middleware/auth");
-
+const auth = require("./middleware/auth");
 
 require("./db/conn");
 const Register = require("./models/registers");
@@ -25,44 +24,76 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 app.set("view engine", "hbs");
 app.set("views", template_path);
 hbs.registerPartials(partials_path);
 
 app.get("/", (req, res) => {
-  res.render("index");
+  logged_in=  true ? req.cookies.jwt : false;
+  console.log(logged_in);
+  
+  res.render("index", {"logged_in": logged_in});
 });
+
 app.get("/contact", (req, res) => {
   res.render("contact");
 });
+
 app.get("/index", (req, res) => {
-  res.render("index");
+  res.redirect("/");
 });
+
 app.get("/secreteindex", (req, res) => {
   res.render("secreteindex");
 });
+
 app.get("/login", (req, res) => {
   res.render("login");
 });
+
 ////////secrete///////////////////
-app.get("/mappy", auth,(req, res) => {
+app.get("/mappy", auth, (req, res) => {
   console.log(`the cookie token is ${req.cookies.jwt}`);
+  if (!req.cookies.jwt) {
+    res.redirect("/login");
+  }
   res.render("mappy");
 });
-app.get("/logout", auth, async (req, res) => {
-  try{
-    console.log(req.user);
-    ///deleting current token from data base by using filter
-    req.user.tokens=req.user.tokens.filter((currElement)=>{
-      return currElement.token !== req.token;
-    })
+///////////////////////////////
 
+app.get("/logout", auth, async function (req, res) {
+  try {
+    console.log(req.user);
+    ///logout from one devices
+    req.user.tokens = req.user.tokens.filter((currElement) => {
+      return currElement.token !== req.token;
+    });
+
+    //////////////////////////
     res.clearCookie("jwt");
     await req.user.save();
     console.log("logout sucessfully");
     res.status(201).render("index");
-  }catch(error){
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+app.get("/logoutall", auth, async function (req, res) {
+  try {
+    console.log(req.user);
+    ///logout from one devices
+    req.user.tokens = req.user.tokens.filter((currElement) => {
+      return currElement.token !== req.token;
+    });
+    ///logout from all devices
+    req.user.tokens = [];
+
+    //////////////////////////
+    res.clearCookie("jwt");
+    await req.user.save();
+    console.log("logout sucessfully");
+    res.status(201).redirect("/index");
+  } catch (error) {
     res.status(500).send(error);
   }
 });
@@ -84,7 +115,7 @@ app.post("/register", async (req, res) => {
       console.log("the sucesspart " + registerEmployee);
       const token = await registerEmployee.generateAuthToken();
       console.log("the token part " + token);
-//////////////////adding cookiee////////////////git 
+      //////////////////adding cookiee////////////////git
       res.cookie("jwt", token, {
         expires: new Date(Date.now() + 21600 * 1000),
         httpOnly: true,
@@ -92,7 +123,7 @@ app.post("/register", async (req, res) => {
       // console.log(cookie);
 
       const registered = await registerEmployee.save();
-      res.status(201).redirect("/secreteindex");
+      res.status(201).redirect("/index");
     } else {
       res.status(403).send("password are not matched");
     }
@@ -104,7 +135,7 @@ app.post("/register", async (req, res) => {
 });
 
 //login check///////////////////////
-app.post("/loggedin", async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.pswd;
@@ -112,7 +143,7 @@ app.post("/loggedin", async (req, res) => {
     //  res.send(useremail);
     //  console.log(useremail);
     const isMatch = await bcrypt.compare(password, useremail.pswd);
-
+    console.log(typeof(useremail));
     const token = await useremail.generateAuthToken();
     console.log("the token part " + token);
     /////////////adding cookie////////////////////////////////
@@ -121,11 +152,9 @@ app.post("/loggedin", async (req, res) => {
       httpOnly: true,
       //secure: true,         ---------------only use when you deploy this on secure https
     });
-    
-     
 
     if (isMatch) {
-      res.status(201).render("secreteindex");
+      res.status(201).redirect("/");
     } else {
       res.send("invalid login details");
     }

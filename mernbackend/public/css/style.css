@@ -1406,7 +1406,8 @@
      */
   
     .container {
-      max-width: 1200px;
+      max-width: 1363px;
+      margin: auto;
     }
   
     /**
