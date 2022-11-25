@@ -41,7 +41,11 @@
                         </div>
                         <!-- Forgot Password -->
                         <div class="form-link">
+                            {{#if forgot}}
+                            <p style="color: red;">Invalid login details.  <a href="#" style="color: red;">Forgotten password ?</a></p>
+                            {{else}}
                             <a href="#" class="forgot-pass">Forgot password?</a>
+                            {{/if}}
                         </div>
                         <!-- Login Button -->
                         <div class="field button-field">
