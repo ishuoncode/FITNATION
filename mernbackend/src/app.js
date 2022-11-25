@@ -10,7 +10,7 @@ require("./db/conn");
 const Register = require("./models/registers");
 const { models } = require("mongoose");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const static_path = path.join(__dirname, "../public");
 
@@ -36,7 +36,9 @@ app.get("/login", (req, res) => {
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 //   create new user in our database
+
 app.post("/register", async (req, res) => {
   try {
     const password = req.body.pswd;
@@ -52,6 +54,12 @@ app.post("/register", async (req, res) => {
       console.log("the sucesspart " + registerEmployee);
       const token = await registerEmployee.generateAuthToken();
       console.log("the token part " + token);
+//////////////////adding cookiee////////////////git 
+      res.cookie("jwt", token, {
+        expires: new Date(Date.now() + 21600 * 1000),
+        httpOnly: true,
+      });
+      // console.log(cookie);
 
       const registered = await registerEmployee.save();
       res.status(201).redirect("/index");
@@ -77,7 +85,13 @@ app.post("/loggedin", async (req, res) => {
 
     const token = await useremail.generateAuthToken();
     console.log("the token part " + token);
-
+    /////////////adding cookie////////////////////////////////
+    res.cookie("jwt", token, {
+      expires: new Date(Date.now() + 21600 * 1000),
+      httpOnly: true,
+      //secure: true,         ---------------only use when you deploy this on secure https
+    });
+    
     if (isMatch) {
       res.status(201).render("index");
     } else {
