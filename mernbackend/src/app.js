@@ -6,6 +6,7 @@ const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto"); /////////node ka part hai ye
 const cookieParser = require("cookie-parser");
+const auth=require("./middleware/auth");
 
 
 require("./db/conn");
@@ -41,7 +42,7 @@ app.get("/index", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.get("/mappy", (req, res) => {
+app.get("/mappy", auth,(req, res) => {
   console.log(`the cookie token is ${req.cookies.jwt}`);
   res.render("mappy");
 });
