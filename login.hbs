@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitnation Login & Signup Form</title>
+     <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="css/img/fitness-high-resolution-logo-color-on-transparent-background.png" type="image/svg+xml">
+    <!-- CSS FILE LINK -->
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style.css">
+    {{!-- <script src="js/login.js"></script> --}}
+    <script src="js/script.js" defer></script>
+    <!-- Boxicons CSS LINK -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    {{>navbar}}
+    <div id="top">
+        <section class="container3 forms">
+            <!-- Login Form -->
+            <div class="form3 login">
+                <!-- form-container start -->
+                <div class="form-content">
+                    <h2 class="heading">Login</h2>
+                    <form action="/login" method="post">
+                        <!-- Emial filed -->
+                        <div class="field input-field">
+                            <input type="email" placeholder="Email" class="input" name="email" required>
+                        </div>
+                        <!-- Password Filed -->
+                        <div class="field input-field">
+                            <input type="password" placeholder="Password" class="password" name="pswd" required>
+                            <i class='bx bx-hide eye-icon'></i>
+                        </div>
+                        <!-- Forgot Password -->
+                        <div class="form-link">
+                            {{#if fake}}
+                            <p style="color: red;">Invalid login details.  <a href="#" style="color: red;">Forgotten password ?</a></p>
+                            {{else}}
+                            <a href="#" class="forgot-pass">Forgot password?</a>
+                            {{/if}}
+                        </div>
+                        <!-- Login Button -->
+                        <div class="field button-field">
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
+
+                    <div class="form-link">
+                        <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
+                    </div>
+                </div>
+                <!-- form-container close -->
+
+                <div class="line"></div>
+                <!-- Login With Social Media -->
+                <div class="media-options">
+                    <a href="#" class="field facebook">
+                        <i class='bx bxl-facebook facebook-icon'></i>
+                        <span>Login with Facebook</span>
+                    </a>
+                </div>
+                <div class="media-options">
+                    <a href="#" class="field google">
+                        {{!-- <img src="/img/google.png" alt="" class="google-img"> --}}
+                        <ion-icon name="logo-google" id="logo-google"></ion-icon>
+                        <span>Login with Google</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="form3 signup">
+                <!-- form-container start -->
+                <div class="form-content">
+                    <h2 class="heading">Signup</h2>
+                    <form action="/register" method="post">
+                        <!-- Name Field -->
+                        <div class="field input-field">
+                            <input type="text" name="name" placeholder="User Name" class="input" required>
+                        </div>
+                        <!-- Email Field -->
+                        <div class="field input-field">
+                            <input type="email" name="email" placeholder="Email" class="input" required>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="field input-field">
+                            <input type="password" name="pswd" placeholder="Create Password" class="password" required>
+                            <i class='bx bx-hide eye-icon'></i>
+                        </div>
+                        <!-- Confirm Password Field -->
+                        <div class="field input-field">
+                            <input type="password" name="confirmpswd" placeholder="Confirm Password" class="password" required>
+                        </div>
+                        <!-- SignUp Button -->
+                        <div class="field button-field">
+                            <button type="submit">Signup</button>
+                        </div>
+                    </form>
+
+                    <div class="form-link">
+                        <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+                    </div>
+                </div>
+                <!-- form-container close -->
+
+                <div class="line"></div>
+                <!-- Login With Social Media -->
+                <div class="media-options">
+                    <a href="#" class="field facebook">
+                        <i class='bx bxl-facebook facebook-icon'></i>
+                        <span>Login with Facebook</span>
+                    </a>
+                </div>
+                <div class="media-options">
+                    <a href="#" class="field google">
+                        {{!-- <img src="/mernbackend/public/css/img/google.png" alt="" class="google-img"> --}}
+                        <ion-icon name="logo-google" id="logo-google"></ion-icon>
+                        <span>Login with Google</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+    {{>footer}}
+    <!-- ionion icon -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+</body>
+
+</html>
