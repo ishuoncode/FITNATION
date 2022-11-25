@@ -39,12 +39,32 @@ app.get("/contact", (req, res) => {
 app.get("/index", (req, res) => {
   res.render("index");
 });
+app.get("/secreteindex", (req, res) => {
+  res.render("secreteindex");
+});
 app.get("/login", (req, res) => {
   res.render("login");
 });
+////////secrete///////////////////
 app.get("/mappy", auth,(req, res) => {
   console.log(`the cookie token is ${req.cookies.jwt}`);
   res.render("mappy");
+});
+app.get("/logout", auth, async (req, res) => {
+  try{
+    console.log(req.user);
+    ///deleting current token from data base by using filter
+    req.user.tokens=req.user.tokens.filter((currElement)=>{
+      return currElement.token !== req.token;
+    })
+
+    res.clearCookie("jwt");
+    await req.user.save();
+    console.log("logout sucessfully");
+    res.status(201).render("index");
+  }catch(error){
+    res.status(500).send(error);
+  }
 });
 
 //   create new user in our database
@@ -72,7 +92,7 @@ app.post("/register", async (req, res) => {
       // console.log(cookie);
 
       const registered = await registerEmployee.save();
-      res.status(201).redirect("/index");
+      res.status(201).redirect("/secreteindex");
     } else {
       res.status(403).send("password are not matched");
     }
@@ -105,7 +125,7 @@ app.post("/loggedin", async (req, res) => {
      
 
     if (isMatch) {
-      res.status(201).render("index");
+      res.status(201).render("secreteindex");
     } else {
       res.send("invalid login details");
     }

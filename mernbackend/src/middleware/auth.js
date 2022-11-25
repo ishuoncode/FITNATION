@@ -8,6 +8,10 @@ const auth = async (req,res,next)=>{
         console.log(verifyUser);
         const user= await Register.findOne({_id:verifyUser._id});
         console.log(user);
+        ///used in logout get in app.js
+        req.token=token;
+        req.user=user;
+         
         next();
     }catch(error){
         res.status(401).send(error);
