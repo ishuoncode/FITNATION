@@ -4,7 +4,7 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const argon2 = require("argon2");
-const crypto = require("crypto"); /////////node ka part hai ye
+//const crypto = require("crypto"); /////////node ka part hai ye
 const cookieParser = require("cookie-parser");
 const auth = require("./middleware/auth");
 
@@ -46,6 +46,9 @@ app.get("/login", (_req, res) => {
 });
 app.get("/register", (_req, res) => {
   res.render("register");
+});
+app.get("/confirmregister", (_req, res) => {
+  res.render("confirmregister");
 });
 
 ////////secrete///////////////////
@@ -101,8 +104,8 @@ app.post("/register", async (req, res) => {
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
 
-  if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(cpassword))) {
-    return res.status(403).send("password are not matched");
+  if (password !== cpassword) {
+    return res.render("confirmregister");
   }
 
   const registerEmployee = new Register({

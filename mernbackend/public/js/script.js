@@ -76,9 +76,13 @@ pwShowHide.forEach(eyeIcon => {
 })
 
 // Show LogIn and SignUp from
-links.forEach(link => {
-    link.addEventListener("click", e => {
-        e.preventDefault(); //preventing form submit
-        forms.classList.toggle("show-signup");
-    })
-})
+// links.forEach(link => {
+//     link.addEventListener("click", e => {
+//         e.preventDefault(); //preventing form submit
+//         forms.classList.toggle("show-signup");
+//     })
+// })
+/////////////////////////////////////////////check password and confirm password///////////////////////////
+function verifyPassword() { 
+  
+}
