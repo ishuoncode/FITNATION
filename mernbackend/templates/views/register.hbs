@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitnation Login & Signup Form</title>
+    <title>Fitnation Signup Form</title>
     <!-- 
     - favicon
   -->
@@ -25,38 +25,38 @@
     {{>navbar}}
     <div id="top">
         <section class="container3 forms">
-            <!-- Login Form -->
-            <div class="form3 login">
+            <!-- Signup Form -->
+            <div class="form3 signup">
                 <!-- form-container start -->
                 <div class="form-content">
-                    <h2 class="heading">Login</h2>
-                    <form action="/login" method="post">
-                        <!-- Emial filed -->
+                    <h2 class="heading">Signup</h2>
+                    <form action="/register" method="post">
+                        <!-- Name Field -->
                         <div class="field input-field">
-                            <input type="email" placeholder="Email" class="input" name="email" required>
+                            <input type="text" name="name" placeholder="User Name" class="input" required>
                         </div>
-                        <!-- Password Filed -->
+                        <!-- Email Field -->
                         <div class="field input-field">
-                            <input type="password" placeholder="Password" class="password" name="pswd" required>
+                            <input type="email" name="email" placeholder="Email" class="input" required>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="field input-field">
+                            <input type="password" name="pswd" placeholder="Create Password" class="password" required>
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
-                        <!-- Forgot Password -->
-                        <div class="form-link">
-                            {{#if forgot}}
-                            <p style="color: red;">Invalid login details. <a href="#" style="color: red;">Forgotten
-                                    password ?</a></p>
-                            {{else}}
-                            <a href="#" class="forgot-pass">Forgot password?</a>
-                            {{/if}}
+                        <!-- Confirm Password Field -->
+                        <div class="field input-field">
+                            <input type="password" name="confirmpswd" placeholder="Confirm Password" class="password"
+                                required>
                         </div>
-                        <!-- Login Button -->
+                        <!-- SignUp Button -->
                         <div class="field button-field">
-                            <button type="submit">Login</button>
+                            <button type="submit">Signup</button>
                         </div>
                     </form>
 
                     <div class="form-link">
-                        <span>Don't have an account? <a href="/register" class=" ">Signup</a></span>
+                        <span>Already have an account? <a href="/login" class=" ">Login</a></span>
                     </div>
                 </div>
                 <!-- form-container close -->
@@ -76,9 +76,8 @@
                         <span>Login with Google</span>
                     </a>
                 </div>
+
             </div>
-
-
 
         </section>
     </div>

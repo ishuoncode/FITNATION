@@ -44,6 +44,9 @@ app.get("/index", (_req, res) => {
 app.get("/login", (_req, res) => {
   res.render("login");
 });
+app.get("/register", (_req, res) => {
+  res.render("register");
+});
 
 ////////secrete///////////////////
 app.get("/mappy", auth, (req, res) => {
@@ -130,7 +133,7 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const user_db = await Register.findOne({ email: req.body.email });
   if (!user_db) {
-    return res.render("login", {"forgot": true});
+    return res.render("login", { forgot: true });
   }
 
   if (!(await argon2.verify(user_db.pswd, req.body.pswd))) {
