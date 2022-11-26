@@ -155,7 +155,19 @@ app.post("/login", async (req, res) => {
 
   res.redirect("/");
 });
+app.post("/mappy", async (req, res) => {
+  const duration=req.body.duration;
+  const distance=req.body.distance;
+  const cadence=req.body.cadence;
+  const elevgain=req.body.elevgain;
+  const type=req.body.type;//////not working yet////////////////////////////////
+  let pace=req.body.duration / req.body.distance;
+  let speed=req.body.distance / req.body.duration / 60 ;
 
+
+  console.log(duration,distance,cadence,elevgain,type,pace,speed);
+  return res.redirect("/mappy");
+})
 ////////////////////////////////////////////
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);

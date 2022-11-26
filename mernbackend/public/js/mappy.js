@@ -135,8 +135,8 @@ class App {
 
   _hideForm() {
     // Empty inputs
-    inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
-      '';
+    // inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
+    //   '';
 
     form.style.display = 'none';
     form.classList.add('hidden');
@@ -300,26 +300,26 @@ class App {
     // workout.click();
   }
 
-  _setLocalStorage() {
-    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
-  }
+  // _setLocalStorage() {
+  //   localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  // }
 
-  _getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('workouts'));
+  // _getLocalStorage() {
+  //   const data = JSON.parse(localStorage.getItem('workouts'));
 
-    if (!data) return;
+  //   if (!data) return;
 
-    this.#workouts = data;
+  //   this.#workouts = data;
 
-    this.#workouts.forEach(work => {
-      this._renderWorkout(work);
-    });
-  }
+  //   this.#workouts.forEach(work => {
+  //     this._renderWorkout(work);
+  //   });
+  // }
 
-  reset() {
-    localStorage.removeItem('workouts');
-    location.reload();
-  }
+  // reset() {
+  //   localStorage.removeItem('workouts');
+  //   location.reload();
+  // }
 }
 
 const app = new App();
