@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const hbs = require("hbs");
-const bcrypt = require("bcryptjs");
+const argon2 = require("argon2");
 const crypto = require("crypto"); /////////node ka part hai ye
 const cookieParser = require("cookie-parser");
 const auth = require("./middleware/auth");
@@ -29,10 +29,10 @@ app.set("views", template_path);
 hbs.registerPartials(partials_path);
 
 app.get("/", (req, res) => {
-  logged_in=  true ? req.cookies.jwt : false;
+  logged_in = true ? req.cookies.jwt : false;
   console.log(logged_in);
-  
-  res.render("index", {"logged_in": logged_in});
+
+  res.render("index", { logged_in: logged_in });
 });
 
 app.get("/contact", (req, res) => {
@@ -43,10 +43,6 @@ app.get("/index", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/secreteindex", (req, res) => {
-  res.render("secreteindex");
-});
-
 app.get("/login", (req, res) => {
   res.render("login");
 });
@@ -55,7 +51,7 @@ app.get("/login", (req, res) => {
 app.get("/mappy", auth, (req, res) => {
   console.log(`the cookie token is ${req.cookies.jwt}`);
   if (!req.cookies.jwt) {
-    res.redirect("/login");
+    return res.redirect("/login");
   }
   res.render("mappy");
 });
@@ -63,7 +59,7 @@ app.get("/mappy", auth, (req, res) => {
 
 app.get("/logout", auth, async function (req, res) {
   try {
-    console.log(req.user);
+    console.table(req.user);
     ///logout from one devices
     req.user.tokens = req.user.tokens.filter((currElement) => {
       return currElement.token !== req.token;
@@ -136,34 +132,28 @@ app.post("/register", async (req, res) => {
 
 //login check///////////////////////
 app.post("/login", async (req, res) => {
+  let user_db = null;
   try {
-    const email = req.body.email;
-    const password = req.body.pswd;
-    const useremail = await Register.findOne({ email: email });
-    //  res.send(useremail);
-    //  console.log(useremail);
-    const isMatch = await bcrypt.compare(password, useremail.pswd);
-    console.log(typeof(useremail));
-    const token = await useremail.generateAuthToken();
-    console.log("the token part " + token);
-    /////////////adding cookie////////////////////////////////
-    res.cookie("jwt", token, {
-      expires: new Date(Date.now() + 21600 * 1000),
-      httpOnly: true,
-      //secure: true,         ---------------only use when you deploy this on secure https
-    });
-
-    if (isMatch) {
-      res.status(201).redirect("/");
-    } else {
-      // return res.redirect("/login", {"forgot": true});
-      // res.send("invalid login details");
-      res.status(403).render("login",{fake: 100});
-    }
+    user_db = await Register.findOne({ email: req.body.email });
   } catch (error) {
-    
-    res.status(403).render("login",{fake: 100});
+    return res.render("login", { forgot: true });
   }
+
+  if (!(await argon2.verify(user_db.pswd, req.body.pswd))) {
+    return res.render("login", { forgot: true });
+  }
+
+  const token = await user_db.generateAuthToken();
+  console.log("the token part " + token);
+
+  /////////////adding cookie////////////////////////////////
+  res.cookie("jwt", token, {
+    expires: new Date(Date.now() + 21600 * 1000),
+    httpOnly: true,
+    //secure: true,         //---------------only use when you deploy this on secure https
+  });
+
+  res.redirect("/");
 });
 
 ////////////////////////////////////////////

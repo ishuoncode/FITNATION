@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
@@ -47,10 +47,7 @@ employeeSchema.methods.generateAuthToken = async function () {
 
 employeeSchema.pre("save", async function (next) {
   if (this.isModified("pswd")) {
-    // console.log(`Actual password ${this.pswd}`);
-    this.pswd = await bcrypt.hash(this.pswd, 12);
-    // console.log(`hash password ${this.pswd}`);
-    // this.confirmpswd = await bcrypt.hash(this.pswd, 12);
+    this.pswd = await argon2.hash(this.pswd);
   }
   next();
 });
