@@ -29,21 +29,19 @@ app.set("views", template_path);
 hbs.registerPartials(partials_path);
 
 app.get("/", (req, res) => {
-  logged_in = true ? req.cookies.jwt : false;
-  console.log(logged_in);
-
-  res.render("index", { logged_in: logged_in });
+  // check whether jwt is undefined or not.
+  res.render("index", { logged_in: !!req.cookies.jwt });
 });
 
-app.get("/contact", (req, res) => {
+app.get("/contact", (_req, res) => {
   res.render("contact");
 });
 
-app.get("/index", (req, res) => {
+app.get("/index", (_req, res) => {
   res.redirect("/");
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", (_req, res) => {
   res.render("login");
 });
 
@@ -97,46 +95,42 @@ app.get("/logoutall", auth, async function (req, res) {
 //   create new user in our database
 
 app.post("/register", async (req, res) => {
-  try {
-    const password = req.body.pswd;
-    const cpassword = req.body.confirmpswd;
-    console.log(password, cpassword);
-    if (crypto.timingSafeEqual(Buffer.from(password), Buffer.from(cpassword))) {
-      const registerEmployee = new Register({
-        name: req.body.name,
-        email: req.body.email,
-        pswd: req.body.pswd,
-      });
-      ////generating token for cookiee//////////
-      console.log("the sucesspart " + registerEmployee);
-      const token = await registerEmployee.generateAuthToken();
-      console.log("the token part " + token);
-      //////////////////adding cookiee////////////////git
-      res.cookie("jwt", token, {
-        expires: new Date(Date.now() + 21600 * 1000),
-        httpOnly: true,
-      });
-      // console.log(cookie);
+  const password = req.body.pswd;
+  const cpassword = req.body.confirmpswd;
 
-      const registered = await registerEmployee.save();
-      res.status(201).redirect("/index");
-    } else {
-      res.status(403).send("password are not matched");
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-    console.log("the error part page");
+  if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(cpassword))) {
+    return res.status(403).send("password are not matched");
   }
+
+  const registerEmployee = new Register({
+    name: req.body.name,
+    email: req.body.email,
+    pswd: password,
+  });
+
+  ////generating token for cookiee//////////
+  const token = await registerEmployee.generateAuthToken();
+  console.log("the token part " + token);
+
+  try {
+    await registerEmployee.save();
+  } catch (error) {
+    return res.redirect("/login");
+  }
+
+  //////////////////adding cookiee////////////////git
+  res.cookie("jwt", token, {
+    expires: new Date(Date.now() + 21600 * 1000),
+    // httpOnly: true,
+  });
+  return res.redirect("/index");
 });
 
 //login check///////////////////////
 app.post("/login", async (req, res) => {
-  let user_db = null;
-  try {
-    user_db = await Register.findOne({ email: req.body.email });
-  } catch (error) {
-    return res.render("login", { forgot: true });
+  const user_db = await Register.findOne({ email: req.body.email });
+  if (!user_db) {
+    return res.render("login", {"forgot": true});
   }
 
   if (!(await argon2.verify(user_db.pswd, req.body.pswd))) {
