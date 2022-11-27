@@ -16,46 +16,66 @@
   <script defer src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
 
-  <script defer src="js/mappy.js"></script>
+  
   <title>mapty // Map your workouts</title>
 </head>
 
 <body>
-  <div class="sidebar">
-    <img src="css/img/icon.png" alt="Logo" class="logo" /><span class="logo"> By-Fitnation</span>
+ <div class="sidebar">
+      <img src="css/img/icon.png" alt="Logo" class="logo" />
+      <p id="fit">By-Fitnation</p>
 
-    <ul class="workouts">
-      <form class="form hidden" action="/mappy" method="post">
-        <div class="form__row">
-          <label class="form__label" >Type</label>
-          <select class="form__input form__input--type" name=type>
-            <option value="running" >Running</option>
-            <option value="cycling" >Cycling</option>
-          </select>
-        </div>
-        <div class="form__row">
-          <label class="form__label">Distance</label>
-          <input class="form__input form__input--distance"name="distance" placeholder="km" />
-        </div>
-        <div class="form__row">
-          <label class="form__label">Duration</label>
-          <input class="form__input form__input--duration"name="duration" placeholder="min" />
-        </div>
-        <div class="form__row">
-          <label class="form__label">Cadence</label>
-          <input class="form__input form__input--cadence"name="cadence" placeholder="step/min" />
-        </div>
-        <div class="form__row form__row--hidden">
-          <label class="form__label">Elev Gain</label>
-          <input class="form__input form__input--elevation" name="elevgain"placeholder="meters" />
-        </div>
-        {{!-- <input type="text" class="x" name="lattitude">
-        <input type="text" class="y" name="longitde"> --}}
-       
-        <button class="form__btn">OK</button>
-      </form>
+      <ul class="workouts">
+        <form class="form hidden">
+          <div class="form__row">
+            <label class="form__label">Type</label>
+            <select class="form__input form__input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Distance</label>
+            <input class="form__input form__input--distance" placeholder="km" />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="min"
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Cadence</label>
+            <input
+              class="form__input form__input--cadence"
+              placeholder="step/min"
+            />
+          </div>
+          <div class="form__row form__row--hidden">
+            <label class="form__label">Elev Gain</label>
+            <input
+              class="form__input form__input--elevation"
+              placeholder="meters"
+            />
+          </div>
+          {{!-- <label class="form__label">latitude</label> --}}
+          <input id="x"  class="hidden-inputs"/>
+          {{!-- <label class="form__label">longitude</label> --}}
+          <input  id="y" class="hidden-inputs" />
+          {{!-- <label class="form__label">identity</label> --}}
+          <input  id="identity" class="hidden-inputs" />
+          {{!-- <label class="form__label">date</label> --}}
+          <input  id="day"  class="hidden-inputs"/>
+          {{!-- <label class="form__label">month</label> --}}
+          <input  id="month" class="hidden-inputs" />
+          <input  id="types" class="hidden-inputs" />
+          
 
-      <!-- <li class="workout workout--running" data-id="1234567890">
+          <button class="form__btn">OK</button>
+        </form>
+
+        <!-- <li class="workout workout--running" data-id="1234567890">
           <h2 class="workout__title">Running on April 14</h2>
           <div class="workout__details">
             <span class="workout__icon">🏃‍♂️</span>
@@ -102,15 +122,16 @@
             <span class="workout__unit">m</span>
           </div>
         </li> -->
-    </ul>
+      </ul>
 
-    <p class="copyright">
-      &copy; Copyright by
-      <a>ISHU SINGH</a>. Use for learning or your portfolio.
-    </p>
-  </div>
+      <p class="copyright">
+        &copy; Copyright by
+        <a>ISHU SINGH</a>. Use for learning or your portfolio.
+      </p>
+    </div>
 
   <div id="map"></div>
+  <script defer src="js/mappy.js"></script>
 </body>
 
 </html>
