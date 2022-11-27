@@ -174,36 +174,40 @@ app.post("/mappy", auth, async (req, res) => {
   console.log(duration, distance, cadence, elevgain, type, pace, speed,date,month,identity,lat,lng);
   ;
 
-  console.log(req.user._id);
-  // const updatedocument = async (identity) => {
-  //   try {
-  //     const result = await Register.findByIdAndUpdate(
-  //       identity,
-  //       {
-  //         $set: {
-  //           workouts: [
-  //             {
-  //               duration: duration,
-  //               distance: distance,
-  //               cadence: cadence,
-  //               elevgain: elevgain,
-  //               type: type,
-  //               pace: pace,
-  //               speed: speed,
-  //               date: date.getDate(),
-  //               month: month
-  //             },
-  //           ],
-  //         },
-  //       },
-  //       { new: true, useFindAndModify: false }
-  //     );
-  //     console.log(result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // updatedocument(id);
+  // console.log(req.user._id);
+  // const userId=req.user._id;
+  const updatedocument = async (userId) => {
+    try {
+      const result = await Register.findByIdAndUpdate(
+        userId,
+        {
+          $push: {
+            workouts: [
+              {
+                duration: duration,
+                distance: distance,
+                cadence: cadence,
+                elevgain: elevgain,
+                type: type,
+                pace: pace,
+                speed: speed,
+                date: date,
+                month: month,
+                identity: identity,
+                latitude: lat,
+                longitude: lng,
+              },
+            ],
+          },
+        },
+        { new: true, useFindAndModify: false }
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  updatedocument(req.user.id);
   return res.redirect("/mappy");
 });
 ////////////////////////////////////////////
