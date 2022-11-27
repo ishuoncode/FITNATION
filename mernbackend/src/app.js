@@ -164,8 +164,13 @@ app.post("/mappy", auth, async (req, res) => {
   let pace = req.body.duration / req.body.distance;
   let speed = req.body.distance / req.body.duration / 60;
   const id = req.user.id;
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  const date = new Date();
+  const month = months[date.getMonth()];
+  
   // const workout = new Register
-  console.log(duration, distance, cadence, elevgain, type, pace, speed);
+  console.log(duration, distance, cadence, elevgain, type, pace, speed,date.getDate(),month);
   console.log(req.user._id);
   const updatedocument = async (identity) => {
     try {
@@ -182,6 +187,8 @@ app.post("/mappy", auth, async (req, res) => {
                 type: type,
                 pace: pace,
                 speed: speed,
+                date: date.getDate(),
+                month: month
               },
             ],
           },
