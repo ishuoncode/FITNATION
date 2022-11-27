@@ -160,47 +160,50 @@ app.post("/mappy", auth, async (req, res) => {
   const distance = req.body.distance;
   const cadence = req.body.cadence;
   const elevgain = req.body.elevgain;
-  const type = req.body.type; //////not working yet////////////////////////////////
-  let pace = req.body.duration / req.body.distance;
-  let speed = req.body.distance / req.body.duration / 60;
-  const id = req.user.id;
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const type = req.body.type; 
+  let pace = (req.body.duration / req.body.distance).toFixed(1);
+  let speed = ((req.body.distance / req.body.duration) / 60).toFixed(1);
+  const date= req.body.date;
+  const month = req.body.month;
+  const identity = req.body.identity;
+  const lat = req.body.latitude;
+  const lng= req.body.longitude;
 
-  const date = new Date();
-  const month = months[date.getMonth()];
   
   // const workout = new Register
-  console.log(duration, distance, cadence, elevgain, type, pace, speed,date.getDate(),month);
+  console.log(duration, distance, cadence, elevgain, type, pace, speed,date,month,identity,lat,lng);
+  ;
+
   console.log(req.user._id);
-  const updatedocument = async (identity) => {
-    try {
-      const result = await Register.findByIdAndUpdate(
-        identity,
-        {
-          $set: {
-            workouts: [
-              {
-                duration: duration,
-                distance: distance,
-                cadence: cadence,
-                elevgain: elevgain,
-                type: type,
-                pace: pace,
-                speed: speed,
-                date: date.getDate(),
-                month: month
-              },
-            ],
-          },
-        },
-        { new: true, useFindAndModify: false }
-      );
-      console.log(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  updatedocument(id);
+  // const updatedocument = async (identity) => {
+  //   try {
+  //     const result = await Register.findByIdAndUpdate(
+  //       identity,
+  //       {
+  //         $set: {
+  //           workouts: [
+  //             {
+  //               duration: duration,
+  //               distance: distance,
+  //               cadence: cadence,
+  //               elevgain: elevgain,
+  //               type: type,
+  //               pace: pace,
+  //               speed: speed,
+  //               date: date.getDate(),
+  //               month: month
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       { new: true, useFindAndModify: false }
+  //     );
+  //     console.log(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // updatedocument(id);
   return res.redirect("/mappy");
 });
 ////////////////////////////////////////////

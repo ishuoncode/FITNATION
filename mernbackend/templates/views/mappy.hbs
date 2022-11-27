@@ -26,50 +26,50 @@
       <p id="fit">By-Fitnation</p>
 
       <ul class="workouts">
-        <form class="form hidden">
+        <form class="form hidden" action="/mappy" method="post">
           <div class="form__row">
             <label class="form__label">Type</label>
-            <select class="form__input form__input--type">
+            <select class="form__input form__input--type" >
               <option value="running">Running</option>
               <option value="cycling">Cycling</option>
             </select>
           </div>
           <div class="form__row">
             <label class="form__label">Distance</label>
-            <input class="form__input form__input--distance" placeholder="km" />
+            <input class="form__input form__input--distance" name="distance" placeholder="km" />
           </div>
           <div class="form__row">
-            <label class="form__label">Duration</label>
+            <label class="form__label" >Duration</label>
             <input
               class="form__input form__input--duration"
-              placeholder="min"
+              placeholder="min" name="duration"
             />
           </div>
           <div class="form__row">
             <label class="form__label">Cadence</label>
             <input
               class="form__input form__input--cadence"
-              placeholder="step/min"
+              placeholder="step/min" name="cadence"
             />
           </div>
           <div class="form__row form__row--hidden">
-            <label class="form__label">Elev Gain</label>
+            <label class="form__label" >Elev Gain</label>
             <input
               class="form__input form__input--elevation"
-              placeholder="meters"
+              placeholder="meters" name="elevgain"
             />
           </div>
           {{!-- <label class="form__label">latitude</label> --}}
-          <input id="x"  class="hidden-inputs"/>
+          <input id="x"  class="hidden-inputs" name="latitude" />
           {{!-- <label class="form__label">longitude</label> --}}
-          <input  id="y" class="hidden-inputs" />
+          <input  id="y" class="hidden-inputs" name="longitude" />
           {{!-- <label class="form__label">identity</label> --}}
-          <input  id="identity" class="hidden-inputs" />
+          <input  id="identity" class="hidden-inputs" name="identity" />
           {{!-- <label class="form__label">date</label> --}}
-          <input  id="day"  class="hidden-inputs"/>
+          <input  id="day"  class="hidden-inputs" name="date" />
           {{!-- <label class="form__label">month</label> --}}
-          <input  id="month" class="hidden-inputs" />
-          <input  id="types" class="hidden-inputs" />
+          <input  id="month" class="hidden-inputs" name="month" />
+          <input  id="types" class="hidden-inputs" name="type" />
           
 
           <button class="form__btn">OK</button>

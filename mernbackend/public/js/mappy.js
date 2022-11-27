@@ -52,7 +52,7 @@ if (navigator.geolocation)
 //////////////////
 
 form.addEventListener('submit', function (e) {
-  e.preventDefault(); ///////////band karnana hai isko varna form submit nahi hoga
+  //e.preventDefault(); ///////////band karnana hai isko varna form submit nahi hoga
   const pace = (inputDuration.value / inputDistance.value).toFixed(1);
   const speed = (inputDuration.value / inputDistance.value / 60).toFixed(1);
   types.value = inputType.value;
@@ -114,14 +114,14 @@ form.addEventListener('submit', function (e) {
 
 
   //clear inputs feilds
-  inputDistance.value =
-    inputCadence.value =
-    inputDuration.value =
-    inputElevation.value =
-    x.value =
-    y.value =
-    identity.value =
-      '';
+  // inputDistance.value =
+  //   inputCadence.value =
+  //   inputDuration.value =
+  //   inputElevation.value =
+  //   x.value =
+  //   y.value =
+  //   identity.value =
+  //     '';
     form.style.display="none";
     form.classList.add('hidden');
     setTimeout(()=>form.style.display='grid',1000);
