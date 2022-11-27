@@ -26,6 +26,7 @@ const employeeSchema = new mongoose.Schema({
       },
     },
   ],
+  workouts:[]
 });
 //////////generating token////
 employeeSchema.methods.generateAuthToken = async function () {

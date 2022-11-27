@@ -155,19 +155,47 @@ app.post("/login", async (req, res) => {
 
   res.redirect("/");
 });
-app.post("/mappy", async (req, res) => {
-  const duration=req.body.duration;
-  const distance=req.body.distance;
-  const cadence=req.body.cadence;
-  const elevgain=req.body.elevgain;
-  const type=req.body.type;//////not working yet////////////////////////////////
-  let pace=req.body.duration / req.body.distance;
-  let speed=req.body.distance / req.body.duration / 60 ;
-
-
-  console.log(duration,distance,cadence,elevgain,type,pace,speed);
+app.post("/mappy", auth, async (req, res) => {
+  const duration = req.body.duration;
+  const distance = req.body.distance;
+  const cadence = req.body.cadence;
+  const elevgain = req.body.elevgain;
+  const type = req.body.type; //////not working yet////////////////////////////////
+  let pace = req.body.duration / req.body.distance;
+  let speed = req.body.distance / req.body.duration / 60;
+  const id = req.user.id;
+  // const workout = new Register
+  console.log(duration, distance, cadence, elevgain, type, pace, speed);
+  console.log(req.user._id);
+  const updatedocument = async (identity) => {
+    try {
+      const result = await Register.findByIdAndUpdate(
+        identity,
+        {
+          $set: {
+            workouts: [
+              {
+                duration: duration,
+                distance: distance,
+                cadence: cadence,
+                elevgain: elevgain,
+                type: type,
+                pace: pace,
+                speed: speed,
+              },
+            ],
+          },
+        },
+        { new: true, useFindAndModify: false }
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  updatedocument(id);
   return res.redirect("/mappy");
-})
+});
 ////////////////////////////////////////////
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);
