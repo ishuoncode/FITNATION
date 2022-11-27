@@ -59,6 +59,15 @@ app.get("/mappy", auth, (req, res) => {
   }
   res.render("mappy");
 });
+app.get("/api/fetch",(req,res)=>{
+  Register.find((err,val)=>{
+    if(err){
+      console.log(err);
+    }else{
+      res.json(val);
+    }
+  })
+});
 ///////////////////////////////
 
 app.get("/logout", auth, async function (req, res) {
