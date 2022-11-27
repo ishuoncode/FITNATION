@@ -19,15 +19,14 @@ html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
-#fit{
+#fit {
   text-align: center;
-  
-  margin-bottom: 16px;
 
+  margin-bottom: 16px;
 }
-/* .hidden-inputs{
+.hidden-inputs {
   display: none;
-} */
+}
 body {
   font-family: "Manrope", sans-serif;
   color: var(--color-light--2);

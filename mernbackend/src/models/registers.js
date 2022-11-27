@@ -3,7 +3,6 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-
 const employeeSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -26,14 +25,14 @@ const employeeSchema = new mongoose.Schema({
       },
     },
   ],
-  workouts:[]
+  workouts: [],
 });
 //////////generating token////
 employeeSchema.methods.generateAuthToken = async function () {
   try {
     const token = jwt.sign(
       { _id: this._id.toString() },
-      process.env.SECRET_KEY,
+      process.env.SECRET_KEY
     );
     this.tokens = this.tokens.concat({ token: token });
     await this.save();

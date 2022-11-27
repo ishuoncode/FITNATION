@@ -4,7 +4,6 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const argon2 = require("argon2");
-//const crypto = require("crypto"); /////////node ka part hai ye
 const cookieParser = require("cookie-parser");
 const auth = require("./middleware/auth");
 
@@ -59,21 +58,11 @@ app.get("/mappy", auth, (req, res) => {
   }
   res.render("mappy");
 });
-app.get("/api/fetch",(req,res)=>{
-  Register.find((err,val)=>{
-    if(err){
-      console.log(err);
-    }else{
-      res.json(val);
-    }
-  })
-});
+
 ///////////////////////////////
 
 app.get("/logout", auth, async function (req, res) {
   try {
-    console.table(req.user);
-    ///logout from one devices
     req.user.tokens = req.user.tokens.filter((currElement) => {
       return currElement.token !== req.token;
     });
@@ -90,11 +79,9 @@ app.get("/logout", auth, async function (req, res) {
 app.get("/logoutall", auth, async function (req, res) {
   try {
     console.log(req.user);
-    ///logout from one devices
     req.user.tokens = req.user.tokens.filter((currElement) => {
       return currElement.token !== req.token;
     });
-    ///logout from all devices
     req.user.tokens = [];
 
     //////////////////////////
@@ -108,7 +95,6 @@ app.get("/logoutall", auth, async function (req, res) {
 });
 
 //   create new user in our database
-
 app.post("/register", async (req, res) => {
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
@@ -169,44 +155,50 @@ app.post("/mappy", auth, async (req, res) => {
   const distance = req.body.distance;
   const cadence = req.body.cadence;
   const elevgain = req.body.elevgain;
-  const type = req.body.type; 
+  const type = req.body.type;
   let pace = (req.body.duration / req.body.distance).toFixed(1);
-  let speed = ((req.body.distance / req.body.duration) / 60).toFixed(1);
-  const date= req.body.date;
+  let speed = (req.body.distance / req.body.duration / 60).toFixed(1);
+  const date = req.body.date;
   const month = req.body.month;
   const identity = req.body.identity;
   const lat = req.body.latitude;
-  const lng= req.body.longitude;
+  const lng = req.body.longitude;
 
-  
   // const workout = new Register
-  console.log(duration, distance, cadence, elevgain, type, pace, speed,date,month,identity,lat,lng);
-  ;
-
-  // console.log(req.user._id);
-  // const userId=req.user._id;
+  console.log(
+    duration,
+    distance,
+    cadence,
+    elevgain,
+    type,
+    pace,
+    speed,
+    date,
+    month,
+    identity,
+    lat,
+    lng
+  );
   const updatedocument = async (userId) => {
     try {
       const result = await Register.findByIdAndUpdate(
         userId,
         {
           $push: {
-            workouts: [
-              {
-                duration: duration,
-                distance: distance,
-                cadence: cadence,
-                elevgain: elevgain,
-                type: type,
-                pace: pace,
-                speed: speed,
-                date: date,
-                month: month,
-                identity: identity,
-                latitude: lat,
-                longitude: lng,
-              },
-            ],
+            workouts: {
+              duration: duration,
+              distance: distance,
+              cadence: cadence,
+              elevgain: elevgain,
+              type: type,
+              pace: pace,
+              speed: speed,
+              date: date,
+              month: month,
+              identity: identity,
+              latitude: lat,
+              longitude: lng,
+            },
           },
         },
         { new: true, useFindAndModify: false }
@@ -219,6 +211,7 @@ app.post("/mappy", auth, async (req, res) => {
   updatedocument(req.user.id);
   return res.redirect("/mappy");
 });
+
 ////////////////////////////////////////////
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);
