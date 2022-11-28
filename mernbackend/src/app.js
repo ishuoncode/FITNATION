@@ -105,7 +105,7 @@ app.post("/register", async (req, res) => {
   const cpassword = req.body.confirmpswd;
 
   if (password !== cpassword) {
-    return res.render("confirmregister");
+    return res.redirect("/register");
   }
 
   const registerEmployee = new Register({

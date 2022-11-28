@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 ///////////////event listener/////////////
 const addEventOnElem = function (elem, type, callback) {
   if (elem.length > 1) {
@@ -55,34 +53,22 @@ addEventOnElem(window, "scroll", reveal);
 /////////////////////////////////////////////////login form/////////////////////////////////////
 // Password show and hide
 const forms = document.querySelector(".forms"),
-    pwShowHide = document.querySelectorAll(".eye-icon"),
-    links = document.querySelectorAll(".link");
+  pwShowHide = document.querySelectorAll(".eye-icon"),
+  links = document.querySelectorAll(".link");
 
-pwShowHide.forEach(eyeIcon => {
-    eyeIcon.addEventListener("click", () => {
-        let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
+pwShowHide.forEach((eyeIcon) => {
+  eyeIcon.addEventListener("click", () => {
+    let pwFields =
+      eyeIcon.parentElement.parentElement.querySelectorAll(".password");
 
-        pwFields.forEach(password => {
-            if (password.type === "password") {
-                password.type = "text";
-                eyeIcon.classList.replace("bx-hide", "bx-show");
-                return;
-            }
-            password.type = "password";
-            eyeIcon.classList.replace("bx-show", "bx-hide");
-        })
-
-    })
-})
-
-// Show LogIn and SignUp from
-// links.forEach(link => {
-//     link.addEventListener("click", e => {
-//         e.preventDefault(); //preventing form submit
-//         forms.classList.toggle("show-signup");
-//     })
-// })
-/////////////////////////////////////////////check password and confirm password///////////////////////////
-function verifyPassword() { 
-  
-}
+    pwFields.forEach((password) => {
+      if (password.type === "password") {
+        password.type = "text";
+        eyeIcon.classList.replace("bx-hide", "bx-show");
+        return;
+      }
+      password.type = "password";
+      eyeIcon.classList.replace("bx-show", "bx-hide");
+    });
+  });
+});
