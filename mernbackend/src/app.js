@@ -13,10 +13,14 @@ const { models } = require("mongoose");
 
 const port = process.env.PORT || 3000;
 
+
 const static_path = path.join(__dirname, "../public");
 
 const template_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
+
+// handlebars helpers
+hbs.registerHelper("eq", (a, b) => a === b);
 
 app.use(express.static(static_path));
 app.use(express.json());
@@ -56,7 +60,8 @@ app.get("/mappy", auth, (req, res) => {
   if (!req.cookies.jwt) {
     return res.redirect("/login");
   }
-  res.render("mappy");
+  const workouts = req.user.workouts.toJSON();
+  res.render("mappy", { workouts: workouts, e: 1 });
 });
 
 ///////////////////////////////

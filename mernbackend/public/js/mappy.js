@@ -45,6 +45,7 @@ if (navigator.geolocation)
         form.classList.remove("hidden");
         inputDistance.focus();
       });
+ 
     },
     function () {
       alert("Could not get your position");
@@ -66,51 +67,7 @@ form.addEventListener("submit", function (e) {
   ) {
     return alert("Input have to be a positive number");
   }
-  let html = `
-<li class="workout workout--${inputType.value}" data-id=${identity.value}>
- <h2 class="workout__title">${inputType.value} on ${month.value} ${
-    day.value
-  } </h2>
- <div class="workout__details">
-   <span class="workout__icon">${
-     inputType.value === "running" ? "🏃‍♂️" : "🚴‍♀️"
-   }</span>
-   <span class="workout__value">${inputDistance.value}</span>
-   <span class="workout__unit">km</span>
- </div>
- <div class="workout__details">
-   <span class="workout__icon">⏱</span>
-   <span class="workout__value">${inputDuration.value}</span>
-   <span class="workout__unit">min</span>
- </div>`;
-
-  if (inputType.value === "running") {
-    html += ` <div class="workout__details">
-    <span class="workout__icon">⚡️</span>
-    <span class="workout__value">${pace}</span>
-    <span class="workout__unit">min/km</span>
-  </div>
-  <div class="workout__details">
-    <span class="workout__icon">🦶🏼</span>
-    <span class="workout__value">${inputCadence.value}</span>
-    <span class="workout__unit">spm</span>
-  </div>
-</li>`;
-  }
-  if (inputType.value === "cycling") {
-    html += `<div class="workout__details">
-    <span class="workout__icon">⚡️</span>
-    <span class="workout__value">${speed}</span>
-    <span class="workout__unit">km/h</span>
-  </div>
-  <div class="workout__details">
-    <span class="workout__icon">⛰</span>
-    <span class="workout__value">${inputElevation.value}</span>
-    <span class="workout__unit">m</span>
-  </div>
-</li> -->`;
-  }
-  form.insertAdjacentHTML("afterend", html);
+//  
 
   form.style.display = "none";
   form.classList.add("hidden");
@@ -161,3 +118,7 @@ const mon = [
 ];
 month.value =
   mon[date.getMonth()].charAt(0).toUpperCase() + mon[date.getMonth()].slice(1);
+
+  const work = function(data){
+    fetch(`http://localhost:3000/api`).then((res)=>{console.log(res);}).catch((err)=>{console.log(err);})
+  }

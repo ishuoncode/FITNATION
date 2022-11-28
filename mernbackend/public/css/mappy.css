@@ -19,6 +19,10 @@ html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
+.direction{
+  display: flex;
+  flex-direction: column-reverse;
+}
 #fit {
   text-align: center;
 
@@ -60,6 +64,7 @@ a:visited {
   height: 5.2rem;
   align-self: center;
   margin-bottom: 0.5rem;
+  margin-left: 184px;
 }
 
 .workouts {
@@ -133,6 +138,7 @@ a:visited {
   /* Match height and activity boxes */
   height: 9.25rem;
   transition: all 0.5s, transform 1ms;
+  
 }
 
 .form.hidden {

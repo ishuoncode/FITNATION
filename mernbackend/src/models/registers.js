@@ -25,14 +25,51 @@ const employeeSchema = new mongoose.Schema({
       },
     },
   ],
-  workouts: [],
+  workouts: {
+    duration: {
+      type: Number,
+    },
+    distance: {
+      type: Number,
+    },
+    cadence: {
+      type: Number,
+    },
+    elevgain: {
+      type: Number,
+    },
+    type: {
+      type: String,
+    },
+    pace: {
+      type: Number,
+    },
+    speed: {
+      type: Number,
+    },
+    date: {
+      type: Number,
+    },
+    month: {
+      type: String,
+    },
+    identity: {
+      type: Number,
+    },
+    latitude: {
+      type: Number,
+    },
+    longitude: {
+      type: Number,
+    }
+  },
 });
 //////////generating token////
 employeeSchema.methods.generateAuthToken = async function () {
   try {
     const token = jwt.sign(
       { _id: this._id.toString() },
-      process.env.SECRET_KEY
+      process.env.SECRET_KEY,
     );
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
