@@ -22,10 +22,11 @@
 
 <body>
   <div class="sidebar">
-    <a href="/index"> <img src="css/img/icon.png" alt="Logo" class="logo" /></a>
-    <p id="fit">By-Fitnation</p>
+    <a href="/index" style="margin-left: 26vh;"> <img src="css/img/icon.png" alt="Logo" class="logo"/></a>
+    
+    <p style="text-align: center; margin-top: -36px;">By-Fitnation</p>
 
-    <ul class="workouts">
+    <ul class="workouts" style="margin-top: 21px;">
       <form class="form hidden" action="/mappy" method="post">
         <div class="form__row">
           <label class="form__label">Type</label>
@@ -64,58 +65,17 @@
         <button class="form__btn">OK</button>
       </form>
 
-      {{#each workouts}}
-
-      <div class="direction">
-        <li class="workout workout--{{this.type}}" data-id="{{this.identity}}">
-          <h2 class="workout__title">{{this.type}} on {{this.month}} {{this.date}}</h2>
-
-          <div class="workout__details">
-            <span class="workout__icon"> 🏃‍♂️ </span>
-            <span class="workout__value">{{this.distance}}</span>
-            <span class="workout__unit">Km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">{{this.duration}}</span>
-            <span class="workout__unit">min</span>
-          </div>
-          {{#if (eq this.type "running")}}
-          <div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">{{this.pace}}</span>
-            <span class="workout__unit">min/km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">🦶🏼</span>
-            <span class="workout__value">{{this.cadence}}</span>
-            <span class="workout__unit">spm</span>
-          </div>
-          {{else}}
-          <div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">{{this.speed}}</span>
-            <span class="workout__unit">km/h</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⛰</span>
-            <span class="workout__value">{{this.elevgain}}</span>
-            <span class="workout__unit">m</span>
-          </div>
-          {{/if}}
-
-        </li>
-        {{/each}}
-      </div>
 
     </ul>
+
     <p class="copyright">
       &copy; Copyright by
       <a>ISHU SINGH</a>. Use for learning or your portfolio.
     </p>
   </div>
+
   <div id="map"></div>
-  <script defer src="js/mappy.js"></script>
 </body>
+<script defer src="js/mappy.js"></script>
 
 </html>

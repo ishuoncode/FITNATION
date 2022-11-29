@@ -14,23 +14,14 @@
   padding: 0;
   box-sizing: inherit;
 }
-
+.hidden-inputs {
+  display: none;
+}
 html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
-.direction{
-  display: flex;
-  flex-direction: column-reverse;
-}
-#fit {
-  text-align: center;
 
-  margin-bottom: 16px;
-}
-.hidden-inputs {
-  display: none;
-}
 body {
   font-family: "Manrope", sans-serif;
   color: var(--color-light--2);
@@ -63,8 +54,7 @@ a:visited {
 .logo {
   height: 5.2rem;
   align-self: center;
-  margin-bottom: 0.5rem;
-  margin-left: 184px;
+  margin-bottom: 4rem;
 }
 
 .workouts {
@@ -138,7 +128,6 @@ a:visited {
   /* Match height and activity boxes */
   height: 9.25rem;
   transition: all 0.5s, transform 1ms;
-  
 }
 
 .form.hidden {

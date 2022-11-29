@@ -121,8 +121,69 @@ const work = function () {
   fetch("http://localhost:3000/api/mappy/workouts")
     .then(async (res) => {
       const val = await res.json();
-      console.log(val);
-      
+      //// render marker/////
+      for (i = 0; i <= val.length; i++) {
+        L.marker([val[i].latitude, val[i].longitude])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: `${val[i].type}-popup`,
+            })
+          )
+          .setPopupContent(
+            `${val[i].type === "running" ? "🏃‍♂️" : "🚴‍♀️"} ${val[i].type} on ${
+              val[i].month
+            } ${val[i].date} `
+          )
+          .openPopup();
+
+        let html = `
+          <div class="direction">
+            <li class="workout workout--${val[i].type}" data-id="${val[i].identity}">
+              <h2 class="workout__title">${val[i].type} on ${val[i].month} ${val[i].date}</h2>
+   
+              <div class="workout__details">
+               <span class="workout__icon"> 🏃‍♂️ </span>
+                <span class="workout__value">${val[i].distance}</span>
+              <span class="workout__unit">Km</span>
+             </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">${val[i].duration}</span>
+            <span class="workout__unit">min</span>
+              </div>`;
+        if (val[i].type === "running") {
+          html += ` <div class="workout__details">
+                <span class="workout__icon">⚡️</span>
+                  <span class="workout__value">${val[i].pace}</span>
+                 <span class="workout__unit">min/km</span>
+               </div>
+               <div class="workout__details">
+                <span class="workout__icon">🦶🏼</span>
+                <span class="workout__value">${val[i].cadence}</span>
+                <span class="workout__unit">spm</span>
+              </div>
+                </li>`;
+        }
+        if (val[i].type === "cycling") {
+          html += `<div class="workout__details">
+                 <span class="workout__icon">⚡️</span>
+                 <span class="workout__value">${val[i].speed}</span>
+                  <span class="workout__unit">km/h</span>
+              </div>
+              <div class="workout__details">
+                 <span class="workout__icon">⛰</span>
+                 <span class="workout__value">${val[i].elevgain}</span>
+                 <span class="workout__unit">m</span>
+                </div>
+              </li> `;
+        }
+        form.insertAdjacentHTML("afterend", html);
+      }
     })
     .catch((err) => {
       console.log(err);
