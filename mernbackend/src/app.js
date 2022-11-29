@@ -63,6 +63,14 @@ app.get("/mappy", auth, (req, res) => {
   res.render("mappy", { workouts: workouts, e: 1 });
 });
 
+app.get("/api/mappy/workouts", (req, res) => {
+  if (!req.cookies.jwt) {
+    return res.sendStatus(403);
+  }
+  res.setHeader('Content-Type', 'application/json');
+  res.send(req.user.workouts.toJSON());
+})
+
 ///////////////////////////////
 
 app.get("/logout", auth, async function (req, res) {
@@ -103,8 +111,11 @@ app.post("/register", async (req, res) => {
   
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
-
+  const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,25}$/;
   if (password !== cpassword) {
+    return res.redirect("/register");
+  }
+  if(!password.match(paswd)){
     return res.redirect("/register");
   }
 

@@ -51,7 +51,7 @@
 
                         <!-- Password Field -->
                         <div class="field input-field">
-                            <input type="password" name="pswd" placeholder="Create Password" class="password" size=25
+                            <input type="password" name="pswd" placeholder="Create Password" class="password" maxlength="25"
                                 required>
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
@@ -59,7 +59,7 @@
                         <div class="field input-field">
 
                             <input type="password" name="confirmpswd" placeholder="Confirm Password"
-                                class="password confirmpassword" size=25 required>
+                                class="password confirmpassword" maxlength="25" required>
 
 
 
@@ -111,7 +111,10 @@
                 confirmpassword.style.fontsize = "10px";
                 confirmpassword.innerHTML = "Confirm password not matched";
                 alert("Confirm password not matched");
-
+            }
+            let decimal=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,25}$/;
+            if(!password.value.match(decimal)){
+                alert("Password must contain at least \n one lowercase letter,\n one uppercase letter,\n one numeric digit, \n and one special character");
             }
 
         }

@@ -117,12 +117,15 @@ const mon = [
 month.value =
   mon[date.getMonth()].charAt(0).toUpperCase() + mon[date.getMonth()].slice(1);
 
-// const work = function (data) {
-//   fetch("http://localhost:3000/mappy/my/api")
-//     .then((res) => {
-//       console.log(res);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+const work = function () {
+  fetch("http://localhost:3000/api/mappy/workouts")
+    .then(async (res) => {
+      const val = await res.json();
+      console.log(val);
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+work();
