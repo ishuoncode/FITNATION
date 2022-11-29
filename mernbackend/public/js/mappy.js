@@ -15,6 +15,7 @@ const month = document.getElementById("month");
 const types = document.getElementById("types");
 
 let map, mapEvent;
+let ids = null;
 
 if (navigator.geolocation)
   navigator.geolocation.getCurrentPosition(
@@ -37,7 +38,7 @@ if (navigator.geolocation)
         x.value = lat;
         y.value = lng;
         console.log(x.value, y.value);
-        const id = Math.floor(Math.random() * 10000000000000000000000000 + 1);
+        const id = Math.floor(Math.random() * 8745632478 + 1);
 
         identity.value = id;
         //////////////////////////////////
@@ -121,6 +122,7 @@ const work = function () {
   fetch("http://localhost:3000/api/mappy/workouts")
     .then(async (res) => {
       const val = await res.json();
+      ids = val;
       //// render marker/////
       for (i = 0; i <= val.length; i++) {
         L.marker([val[i].latitude, val[i].longitude])
@@ -190,3 +192,19 @@ const work = function () {
     });
 };
 work();
+
+containerWorkouts.addEventListener("click", function (e) {
+  const workoutEl = e.target.closest(".workout");
+  if (!workoutEl) return;
+
+  const workoutID = parseInt(workoutEl.dataset.id);
+  const data = ids.filter((id) => id.identity === workoutID)[0];
+  console.log(data);
+
+  map.setView([data.latitude, data.longitude], 13, {
+    animate: true,
+    pan: {
+      duration: 1,
+    },
+  });
+});
