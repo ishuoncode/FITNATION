@@ -13,7 +13,6 @@ const { models } = require("mongoose");
 
 const port = process.env.PORT || 3000;
 
-
 const static_path = path.join(__dirname, "../public");
 
 const template_path = path.join(__dirname, "../templates/views");
@@ -101,6 +100,7 @@ app.get("/logoutall", auth, async function (req, res) {
 
 //   create new user in our database
 app.post("/register", async (req, res) => {
+  
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
 
@@ -121,7 +121,7 @@ app.post("/register", async (req, res) => {
   try {
     await registerEmployee.save();
   } catch (error) {
-    return res.redirect("/login");
+    return res.render("register", {check:true});
   }
 
   //////////////////adding cookiee////////////////git

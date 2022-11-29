@@ -45,7 +45,6 @@ if (navigator.geolocation)
         form.classList.remove("hidden");
         inputDistance.focus();
       });
- 
     },
     function () {
       alert("Could not get your position");
@@ -67,7 +66,6 @@ form.addEventListener("submit", function (e) {
   ) {
     return alert("Input have to be a positive number");
   }
-//  
 
   form.style.display = "none";
   form.classList.add("hidden");
@@ -119,6 +117,12 @@ const mon = [
 month.value =
   mon[date.getMonth()].charAt(0).toUpperCase() + mon[date.getMonth()].slice(1);
 
-  const work = function(data){
-    fetch(`http://localhost:3000/api`).then((res)=>{console.log(res);}).catch((err)=>{console.log(err);})
-  }
+// const work = function (data) {
+//   fetch("http://localhost:3000/mappy/my/api")
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };

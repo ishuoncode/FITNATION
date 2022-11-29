@@ -38,9 +38,17 @@
                             <input type="text" name="name" placeholder="User Name" class="input" required>
                         </div>
                         <!-- Email Field -->
+                        {{#if check}}
                         <div class="field input-field">
                             <input type="email" name="email" placeholder="Email" class="input" required>
                         </div>
+                        <p style="color: red; font-size:12px;">Email already exist</p>
+                        {{else}}
+                        <div class="field input-field">
+                            <input type="email" name="email" placeholder="Email" class="input" required>
+                        </div>
+                        {{/if}}
+
                         <!-- Password Field -->
                         <div class="field input-field">
                             <input type="password" name="pswd" placeholder="Create Password" class="password" size=25
@@ -105,7 +113,7 @@
                 alert("Confirm password not matched");
 
             }
-            
+
         }
     </script>
 
