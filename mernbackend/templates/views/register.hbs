@@ -38,15 +38,20 @@
                             <input type="text" name="name" placeholder="User Name" class="input" required>
                         </div>
                         <!-- Email Field -->
+                        
                         {{#if check}}
                         <div class="field input-field">
-                            <input type="email" name="email" placeholder="Email" class="input" required>
+                            <input type="email" name="email" placeholder="Email" class="input emails"  required>
                         </div>
                         <p style="color: red; font-size:12px;">Email already exist</p>
                         {{else}}
                         <div class="field input-field">
-                            <input type="email" name="email" placeholder="Email" class="input" required>
+                            <input type="email" name="email" placeholder="Email" class="input emails" required>
                         </div>
+                        {{#if validate}}
+                            
+                        <p style="color: red; font-size:12px;">Invalid Email</p>
+                        {{/if}}
                         {{/if}}
 
                         <!-- Password Field -->
@@ -101,20 +106,23 @@
     <!-- ionion icon -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
     <script>
         const confirmpassword = document.querySelector(".confirmpassword");
         const password = document.querySelector(".password");
         const signupbutton = document.querySelector(".signupbutton");
+        const email =document.querySelectorAll(".emails");
+
         function myFunction() {
             if (password.value !== confirmpassword.value) {
 
-                alert("Confirm password not matched");
+               return alert("Confirm password not matched");
             }
             let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,25}$/;
             if (!password.value.match(decimal)) {
-                alert("Password must contain at least \n one lowercase letter,\n one uppercase letter,\n one numeric digit, \n and one special character");
+               return  alert("Password must contain at least \n one lowercase letter,\n one uppercase letter,\n one numeric digit, \n and one special character");
             }
-
+           
         }
     </script>
 

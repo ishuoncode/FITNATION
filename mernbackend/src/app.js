@@ -6,6 +6,7 @@ const hbs = require("hbs");
 const argon2 = require("argon2");
 const cookieParser = require("cookie-parser");
 const auth = require("./middleware/auth");
+const validator = require("validator");
 
 require("./db/conn");
 const Register = require("./models/registers");
@@ -109,6 +110,11 @@ app.get("/logoutall", auth, async function (req, res) {
 app.post("/register", async (req, res) => {
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
+  const email = req.body.email;
+  const valid=validator.isEmail(email);
+  if(!valid){
+    return res.render("register", { validate: true });
+  }
   const paswd =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,25}$/;
   if (password !== cpassword) {
@@ -218,7 +224,7 @@ app.post("/mappy", auth, async (req, res) => {
         },
         { new: true, useFindAndModify: false }
       );
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       console.log(err);
       res.status(500).send(err);
