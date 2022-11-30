@@ -145,9 +145,13 @@ const work = function () {
 
         let html = `
           <div class="direction">
+         
             <li class="workout workout--${val[i].type}" data-id="${val[i].identity}">
-              <h2 class="workout__title">${val[i].type} on ${val[i].month} ${val[i].date}</h2>
-   
+             
+              <h2 class="workout__title">${val[i].type} on ${val[i].month} ${val[i].date} <a href="#"><img src="css/img/trash-outline.svg" alt="" style="height:20px; width=20px;  " class="icon"></a></h2>
+         
+              
+              
               <div class="workout__details">
                <span class="workout__icon"> 🏃‍♂️ </span>
                 <span class="workout__value">${val[i].distance}</span>
