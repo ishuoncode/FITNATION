@@ -247,7 +247,7 @@ app.post("/mappy/delete", auth, async (req, res) => {
     );
     return res.redirect("/mappy");
   } catch (err) {
-    es.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 ////////////////////////////////////////////
