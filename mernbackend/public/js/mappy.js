@@ -148,7 +148,15 @@ const work = function () {
          
             <li class="workout workout--${val[i].type}" data-id="${val[i].identity}">
              
-              <h2 class="workout__title">${val[i].type} on ${val[i].month} ${val[i].date} <a href="#"><img src="css/img/trash-outline.svg" alt="" style="height:20px; width=20px;  " class="icon"></a></h2>
+              <h2 class="workout__title">${val[i].type} on ${val[i].month} ${val[i].date} 
+
+              <form  id="formss" action="/mappy/delete" method="post" >
+  <input type="text" class="unique" name="unique" value="${val[i].identity}"/>
+  <button id="submit" type="submit" style="cursor:pointer;"><img src="css/img/trash-outline.svg" alt="" style="height:20px; width=20px;  " class="icon"></button>
+</form>
+            </h2>
+              
+             
          
               
               
@@ -212,3 +220,6 @@ containerWorkouts.addEventListener("click", function (e) {
     },
   });
 });
+
+const formss= document.getElementById("formss");
+const unique= document.querySelectorAll(".unique");

@@ -111,8 +111,8 @@ app.post("/register", async (req, res) => {
   const password = req.body.pswd;
   const cpassword = req.body.confirmpswd;
   const email = req.body.email;
-  const valid=validator.isEmail(email);
-  if(!valid){
+  const valid = validator.isEmail(email);
+  if (!valid) {
     return res.render("register", { validate: true });
   }
   const paswd =
@@ -234,6 +234,22 @@ app.post("/mappy", auth, async (req, res) => {
   return res.redirect("/mappy");
 });
 
+app.post("/mappy/delete", auth, async (req, res) => {
+  const ides = req.body.unique;
+  console.log(ides);
+
+  try {
+    Register.updateOne(
+      { _id: req.user.id },
+      { $pull: { workouts: { identity: ides } } },
+      { safe: true, multi: true },
+      function (err, obj) {}
+    );
+    return res.redirect("/mappy");
+  } catch (err) {
+    es.status(500).send(err);
+  }
+});
 ////////////////////////////////////////////
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);
