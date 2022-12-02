@@ -10,6 +10,12 @@
       </button>
 
       <ul class="navbar-list">
+        {{#if logged_in }}
+         <li><img src="/css/img/profile.jpg"  class="mobile_profile"></li>
+         <li class="navbar-item ">
+          <a href="#" class="navbar-link navlink-work logout_mobile" data-nav-link>Account</a>
+        </li>
+        {{/if}}
         <li class="navbar-item">
           <a href="/index" class="navbar-link navlink-work" data-nav-link>Home</a>
         </li>
@@ -19,7 +25,8 @@
         </li>
 
         <li class="navbar-item">
-          <a href="#course" class="navbar-link navlink-work" data-nav-link>All Course</a>
+          <a href="#course" class="navbar-link navlink-work nav-sub" data-nav-link >All Course</a>
+          
         </li>
 
         <li class="navbar-item">
@@ -33,11 +40,38 @@
         <li class="navbar-item">
           <a href="/contact" class="navbar-link" data-nav-link id="contactUs">Contact</a>
         </li>
+           {{#if logged_in }}
+         <li class="navbar-item">
+          <a href="/logout" class="navbar-link logout_mobile" id="logged">Log Out</a>
+        </li>
+         <li class="navbar-item">
+          <a href="/logoutall" class="navbar-link logout_mobile" id="loggedout">Log Out All</a>
+        </li>
+        {{/if}}
       </ul>
+       
     </nav>
     {{#if logged_in }}
-    <a href="/logout" class="btn btn-primary" id="logged">Log Out</a>
-    <a href="/logoutall" class="btn btn-primary" id="loggedout">Log Out All</a>
+   
+       {{!-- <li><img src="/css/img/pexels-pengwhan-1767434.jpg"  class="mobile_laptop" style="width: 50px; height:50px"></li> --}}
+       
+    
+      <div class="nav-right laptop_view_profile" >
+      <ul>
+    
+        <li><img src="/css/img/profile.jpg" style="width: 45px;height:45px;border-radius: 50%;cursor:pointer;" class="li_main"></li>
+        <div class="dd_menu">
+          <div class="dd_left">
+            <ul>
+              <li><a href="#"> Profile</a></li>
+              <li><a href="#"> Settings</a></li>
+              <li><a href="/logout"  id="logged">Log Out</a></li>
+              <li><a href="/logoutall"  id="loggedout">Log Out All</a></li>
+            </ul>
+          </div>
+        </div>
+      </ul>
+    </div>
     {{else}}
     <a href="/login" class="btn btn-primary" id="logged">Log In</a>
     {{/if}}
@@ -47,5 +81,7 @@
     </button>
 
     <div class="overlay" data-nav-toggler data-overlay></div>
+
+  
   </div>
 </header>

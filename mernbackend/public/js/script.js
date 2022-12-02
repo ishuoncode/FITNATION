@@ -44,7 +44,7 @@ addEventOnElem(navLinks, "click", closeNavbar);
 
 const reveal = function () {
   for (let i = 0; i < sections.length; i++) {
-    if (sections[i].getBoundingClientRect().top < window.innerHeight / 2) {
+    if (sections[i].getBoundingClientRect().top < window.innerHeight/2) {
       sections[i].classList.add("active");
     }
   }
@@ -72,3 +72,11 @@ pwShowHide.forEach((eyeIcon) => {
     });
   });
 });
+///////////////////////navbar////////////////////////////////
+const profile = document.querySelector(".li_main");
+const ddmenu = document.querySelector(".dd_menu");
+
+profile.addEventListener("click", () => {
+  ddmenu.classList.toggle("activate");
+  console.log("active");
+})
