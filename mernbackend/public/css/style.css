@@ -946,8 +946,8 @@ body {
   }
   
 }
-@media only screen and (min-device-width:100px) and (max-device-width:991px){
-  .laptop_view_profile{
+@media (max-width:991px){
+  #laptop-profile{
     display: none;
   }
 }
@@ -975,9 +975,7 @@ body {
     --fs-1: 5.6rem;
     --fs-2: 3.6rem;
   }
-  .laptop_profile{
-    display: none;
-  }
+
   .container {
     max-width: 600px;
     width: 100%;
