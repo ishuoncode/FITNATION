@@ -62,9 +62,10 @@ form.addEventListener("submit", function (e) {
   if (
     inputDistance.value < 0 ||
     inputCadence.value < 0 ||
-    inputDuration.value < 0 ||
-    inputElevation.value < 0
+    inputDuration.value < 0 
+    
   ) {
+    e.preventDefault();
     return alert("Input have to be a positive number");
   }
 
