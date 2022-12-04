@@ -62,11 +62,19 @@ form.addEventListener("submit", function (e) {
   if (
     inputDistance.value < 0 ||
     inputCadence.value < 0 ||
-    inputDuration.value < 0 
-    
+    inputDuration.value < 0
   ) {
     e.preventDefault();
     return alert("Input have to be a positive number");
+  }
+
+  if (
+    ![inputCadence.value, inputDuration.value, inputDistance.value]
+      .map(Number.parseFloat)
+      .every(Number.isFinite)
+  ) {
+    e.preventDefault();
+    return alert("Value must be a number");
   }
 
   form.style.display = "none";
@@ -222,5 +230,5 @@ containerWorkouts.addEventListener("click", function (e) {
   });
 });
 
-const formss= document.getElementById("formss");
-const unique= document.querySelectorAll(".unique");
+const formss = document.getElementById("formss");
+const unique = document.querySelectorAll(".unique");

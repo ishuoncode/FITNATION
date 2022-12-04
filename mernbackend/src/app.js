@@ -14,6 +14,7 @@ const { models } = require("mongoose");
 
 const port = process.env.PORT || 3000;
 
+
 const static_path = path.join(__dirname, "../public");
 
 const template_path = path.join(__dirname, "../templates/views");
