@@ -67,7 +67,7 @@ form.addEventListener("submit", function (e) {
     e.preventDefault();
     return alert("Input have to be a positive number");
   }
-
+  if(types.value === "running"){
   if (
     ![inputCadence.value, inputDuration.value, inputDistance.value]
       .map(Number.parseFloat)
@@ -76,6 +76,18 @@ form.addEventListener("submit", function (e) {
     e.preventDefault();
     return alert("Value must be a number");
   }
+  }
+  if(types.value === "cycling"){
+    if (
+      ![ inputDuration.value, inputDistance.value,inputElevation.value]
+        .map(Number.parseFloat)
+        .every(Number.isFinite)
+    ) {
+      e.preventDefault();
+      return alert("Value must be a number");
+    }
+    }
+
 
   form.style.display = "none";
   form.classList.add("hidden");

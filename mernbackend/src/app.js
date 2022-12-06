@@ -143,7 +143,7 @@ app.post("/register", async (req, res) => {
 
   //////////////////adding cookiee////////////////git
   res.cookie("jwt", token, {
-    expires: new Date(Date.now() + 21600 * 1000),
+    expires: new Date(Date.now() + 3600 * 1000),
     // httpOnly: true,
   });
   return res.redirect("/index");
@@ -165,7 +165,7 @@ app.post("/login", async (req, res) => {
 
   /////////////adding cookie////////////////////////////////
   res.cookie("jwt", token, {
-    expires: new Date(Date.now() + 21600 * 1000),
+    expires: new Date(Date.now() + 3600 * 1000),
     httpOnly: true,
     //secure: true,         //---------------only use when you deploy this on secure https
   });
