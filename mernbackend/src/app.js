@@ -56,11 +56,14 @@ app.get("/confirmregister", (_req, res) => {
 });
 
 ////////secrete///////////////////
-app.get("/mappy", auth, (req, res) => {
+app.get("/mappy", auth, async (req, res) => {
   console.log(`the cookie token is ${req.cookies.jwt}`);
-  if (!req.cookies.jwt) {
+
+  if (!req.user.tokens.find((x) => x.token === req.cookies.jwt.toString())) {
+    res.clearCookie("jwt");
     return res.redirect("/login");
   }
+
   const workouts = req.user.workouts.toJSON();
   res.render("mappy", { workouts: workouts, e: 1 });
 });
