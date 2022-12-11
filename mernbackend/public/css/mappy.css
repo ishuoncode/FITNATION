@@ -43,6 +43,7 @@ body {
   padding: 2.5rem;
 
   display: flex;
+  flex-direction: row-reverse;
 }
 
 /* GENERAL */
@@ -219,4 +220,32 @@ a:visited {
 }
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
+}
+@media (max-width: 1000px) {
+
+  body{
+     display: block;
+     padding: 0;
+  }
+  .sidebar{
+    height: 60%;
+    
+  }
+  #map{
+    height: 40%;
+  }
+
+}
+@media (max-width: 600px){
+  body{
+    display: block;
+    padding: 0;
+ }
+ .sidebar{
+   height: 60%;
+   padding: 3rem 0rem 4rem 0rem;
+ }
+ #map{
+   height: 40%;
+ }
 }
