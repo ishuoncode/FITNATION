@@ -37,8 +37,8 @@ app.get("/", (req, res) => {
   res.render("index", { logged_in: !!req.cookies.jwt });
 });
 
-app.get("/contact", (_req, res) => {
-  res.render("contact");
+app.get("/contact", (req, res) => {
+  res.render("contact", { logged_in: !!req.cookies.jwt });
 });
 
 app.get("/index", (_req, res) => {
@@ -75,7 +75,9 @@ app.get("/api/mappy/workouts", auth, (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(req.user.workouts.toJSON());
 });
-
+app.get("/profile", auth, async (req, res) => {
+  res.render("profile", { logged_in: !!req.cookies.jwt });
+});
 ///////////////////////////////
 
 app.get("/logout", auth, async function (req, res) {

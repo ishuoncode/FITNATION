@@ -140,7 +140,8 @@ month.value =
   mon[date.getMonth()].charAt(0).toUpperCase() + mon[date.getMonth()].slice(1);
 
 const work = function () {
-  fetch("http://localhost:3000/api/mappy/workouts")
+  // fetch("http://localhost:3000/api/mappy/workouts")
+  fetch("https://fitnation-access-mappy.loca.lt/api/mappy/workouts")
     .then(async (res) => {
       const val = await res.json();
       ids = val;
